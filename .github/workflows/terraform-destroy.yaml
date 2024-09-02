@@ -1,0 +1,22 @@
+name: Terraform Destroy 
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to destroy the infrastructure'
+        type: choice
+        options:
+        - dev
+        - staging
+        - production
+        required: true
+
+jobs:
+  terraform:
+    name: "Terraform Destroy"
+    uses: MohsinNaseem/reusable-workflows/.github/workflows/terraform-destroy.yaml@main
+    with:
+      environment: ${{ github.event.inputs.environment }}
+      main-repo: ${{ github.event.repository.name }}
+    secrets: inherit

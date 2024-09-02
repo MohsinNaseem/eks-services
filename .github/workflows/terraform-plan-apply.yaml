@@ -1,0 +1,31 @@
+name: Terraform Plan and Apply 
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.gitignore' 
+      - 'README.md'
+      - '.github/workflows/**'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy the infrastructure'
+        type: choice
+        options:
+        - dev
+        - staging
+        - production
+        required: true
+
+jobs:
+  terraform:
+    name: "Plan and Apply"
+    uses: MohsinNaseem/reusable-workflows/.github/workflows/terraform-plan-apply.yaml@main
+    with:
+      environment: ${{ github.event.inputs.environment }}
+      main-repo: ${{ github.event.repository.name }}
+      eks-cluster: "mohsin-eks-cluster"
+      eks-service: true
+    secrets: inherit
