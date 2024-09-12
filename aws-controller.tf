@@ -8,12 +8,12 @@ resource "helm_release" "aws_load_balancer_controller" {
 
   set {
     name  = "clusterName"
-    value = "my-eks-cluster"
+    value = "mohsin-eks-cluster"
   }
 
   set {
     name  = "region"
-    value = "us-west-2"
+    value = "eu-north-1"
   }
 
   set {
